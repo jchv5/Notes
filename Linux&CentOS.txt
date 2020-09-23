@@ -1,3 +1,4 @@
+
 ****Com para files
 
 ls usr/bin =          binarios ejecutables del sistema.
@@ -77,32 +78,6 @@ control + d =         para cerrar session.
 deluser usuario =     elimina un usuario.
 passwd mejorandola =  sirve para cambiar la contraseña.
 
-dit/link/file
-rwx: puede ejecutar script.
-rw-: owner = cuales son los permisos.
-r--: group = grupo que pertenece.
-r--: anyone = que permisos tiene.
----: ni leerlo, ni escribir, ni ejecutar.
-
-dueno - grupo - otros
-rwx   - r-x   - --x
-
-chmod = cambia los permisos;
-chmod o-r file.extension =   quita el permiso de lectura de otros;
-chmod g+x file.extension =   coloca el permiso de ejecucion de grupos; 
-
-r = 4
-w = 2
-x = 1
-
-r--: leer 
-rw-: leer y escribir 
-r-x: leer y ejecutar
---x: ejecutar
--wx: escribir y ejecutar
-rwx: permiso de todo
-
-r=4, x=1, w=2
 
 
 
@@ -126,4 +101,120 @@ tail /var/log/auth.log (con modificador tail -n + el numero de lineas deseadas)
 Seguimiento en tiempo real para el login session mediante el comando:
     tail -f /var/log/auth.log
     
+    
+    
+  ****Interacción con archivos y permisos
+  
+  Identificar los archivos basándonos en el primer carácter:
+-: Es un archivo.
+d: es un directorio.
+l: enlace simbólico.
+
+Todo en Linux se considera un archivo.
+
+Seguido del primer carácter vienen 9 caracteres, los 3 primeros son para el usuario, los siguientes 3 para el grupo y los últimos 3 para otros usuarios del OS:
+
+    r: read - lectura.
+    w: write - escritura.
+    x: execution - ejecución.
+    
+    Owner - group - others
+    rwx   - r-x   - --x
+    
+    chmod u+x +name of the file
+
+Para cambiar permisos en el OS:
+chmod
+Tiene dos maneras de usarse:
+
+    Con letras: ugoa … user, group, others, all
+    chmod u+x   nombre_archivo ==> agregar un permiso.
+    chmod g-w   nombre_archivo ==> quita permisos.
+    chmod +x    nombre_archivo ==> quick way, asume que es para todos (a).
+
+rwx: puede ejecutar script.
+rw-: owner = cuales son los permisos.
+r--: group = grupo que pertenece.
+r--: anyone = que permisos tiene.
+---: ni leerlo, ni escribir, ni ejecutar.
+
+
+chmod = cambia los permisos;
+chmod o-r file.extension =   quita el permiso de lectura de otros;
+chmod g+x file.extension =   coloca el permiso de ejecucion de grupos; 
+
+Con formato octal: son número del 0 al 7, cada letra significa algo especifico.
+
+r = 4
+w = 2
+x = 1
+- = 0
+
+r--: leer 
+rw-: leer y escribir 
+r-x: leer y ejecutar
+--x: ejecutar
+-wx: escribir y ejecutar
+rwx: permiso de todo
+
+r=4, x=1, w=2
+
+Para cambiar de Owner en el archivo:
+chown ==> Change owner
+
+chown +new user:new group +file name
+
+
+
+****Terminales en linux
+
+Las distribuciones de Linux para servidores no incluyen interfaz gráfica, ya que consumen muchos recursos. Esto significa que siempre vamos a trabajar desde la terminal.
+
+Tendremos disponibles 6 terminales virtuales a las que podemos entrar o salir con las teclas: Ctrl + Alt + Fx (osea las teclas F1-F6). 
+También podemos usar el comando: chvt. La séptima terminal es la interfaz gráfica, así que en este caso no disponemos de ella.
+
+Cada usuario activo en nuestro sistema operativo crea una nueva conexión. Podemos ver todas estas conexiones con los comandos: who y w 
+(este último nos da un poco más de información).
+
+Para ver todos los procesos que corren en el sistema podemos usar el comando ps. Para filtrar los procesos y ver únicamente las conexiones 
+de los usuarios usamos el comando: ps -ft tty.
+
+Este comando nos muestra el identificador de cada proceso. Para terminarlo podemos usar el comando: kill -9 PID
+
+
+
+*****Monitoreo de procesos y recursos del sistema
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
