@@ -1,0 +1,129 @@
+****Com para files
+
+ls usr/bin =          binarios ejecutables del sistema.
+ls usr/bin | wc -l =  muestra el numero de binarios ejecutables.
+pwd =                 te muestra la ruta actual.
+control + l =         limpia la consola de linux.
+cd nombre-carpeta =   ingresa a una carpeta.
+cd .. =               sale de una carpeta.
+ls -lh =              mustra el tipo de archivo, fecha, y el peso en B,G,k.
+ls -lha =             muestra los archivos ocultos.
+cd + tab =            auto completa las carpetas o archivos que existan.
+cd ~ =                me redirije a mi ruta principal.
+mkdir =               crea una nueva carpeta.
+touch =               sirve para crear un archivo.
+mv actual futuro =    cambia el nombre del archivo o carpeta.
+rm archivo.md =       elimina un archivo sin preguntar.
+rm -rf carpeta =      elimina una carpeta sin preguntar.
+man comando =         muestra el manual de tal comando.
+mv archivo.txt carpteta/ =          mueve el archivo a tal carpeta.
+mv archivo.txt ~/desktop/carpeta =  mueve el archivo a rutas anteriores.
+cp archivo ../ruta =                copia el archivo y lo pega en la ruta especificada.
+pushd ~/desktop =     accede a la ruta sin necesidad de hacer un cd.
+popd =                regresa a la ruta anterior en necesidad de hacer cd. referencia de pushd.
+open nombre_archivo = habre el archivo
+more archivo.txt =    muestra las primeras lineas del archivo.
+cat > archivo.txt =   sirve para pegar o agregar informacion. termina con control+c.
+tail archivo.txt =    muestra las ultimas 10 lineas.
+vim archivo.ext =     habre un editor de texto, presione "i" para escribir, presione "esc" y ":wq" para guardar y ":q!" para salir.
+more > archivo.txt =  muestra una parte del archivo.
+echo $PATH =          mustra todas las rutas de los programa que tienen permisos.
+alias ver='ls' =      crea un sobrenombre del comando.
+control + r =         busca comandos ejecutados anteriormente.
+top =                 muestra todo el proceso que correr el ordenador.
+grep palabra file.extencion =       busca palabras claves en archivos.
+grep -r . =           muestra los archivos y los contenidos de esos archivos.
+grep -r               carpeta -e palabra = busca la palabra dentro de la carpeta asignada.
+grep -n -r carpeta -e palabra =     busca y muestra el numero de lineas del archivo.
+ls *extencion txt,jpg,mp3 =         lista los archivos que contenga la extencion escrita.
+find . -type d | wc -l =            muestra el numero de directorio que existan.
+curl direccion de internet =        muestra el archivo con el que esta escrito la pagina.
+wget direccion de internet =        util para descargar archivos.
+gig direccion de internet =         util para saber la ip de ese sitio.
+tree =                              muestra el arbol de directorios.
+gzip file.extension =               comprime el archivo.
+gzip -d file.extension =            descomprime el archivo.
+zip nombre.zip *extencion =         comprime los archivos con esas extenciones en zip.
+tar cfz nombre.tar.gz *extencion =  comprime los archivos con esa extencion.
+tar xfz varios.tar.gz =             descomprime  el archivo tar.
+tar cf name.extension carpeta/* =   empaqueta todo los archivos de la carpeta.
+tar tf name.tar =                   ve el contenido del empaquetado.
+tar xf name.tar =                   desempaqueta el tar.
+cat archivo.txt =                   imprime el contenido del archivo.
+ls | wc -l =                        muestra en general la cantidad de contenido que existe.
+whoami =                            muestra con que usuarios estas logueado.
+locate name.extension =             busca el archivo y muestra su ruta.
+sudo updatedb =                     actualiza la base de datos.
+ssh-keygen -t rsa -b 4096 =         sirve para crear llaves ssh de privadas y publicas. 
+ssh 45.55.62.127@root =             se conecta a un servidor remoto mediante ip.
+ping direccion_id =                 muestra las respuesta activa del servidor.
+echo "title" | mail -s "contenido" direccion de correo =    envia un email.
+nl archivo.txt =                    enumera las lineas de un archivo.
+wc -l archivo.txt =                 muestra el numero de lineas que tenga.
+wc -w archivo.txt =                 muestra el numero de palabras.
+wc -m archivo.txt =                 muestra el numero de letras o caracteres.
+sed 's/mi palabra/sustitucion/g' archivo.txt =        sustituye la palabra asignada por la palabra especificada. "g" significa global.
+sed -i 's/palabra/sustitucion/g' archivo.txt =        sustituye la palabra asignada y guarda el archivo con los cambios.
+sed -i.orig 's/palabra/sustitucion/g' archivo.txt =   sustituye la palabra asignada y guarda el archivo con los cambios en una copia aparte.
+sleep 5 && cat archivo.txt =                          simula la ejecucion de algo por 5 segundos luego ejecuta el seguiente comando.
+df -h =               muestra el sistema de fichero como nombre, tamaño, ruta.
+df -h --total =       mustra el sistema de fichero con calculos totales.
+
+					USUARIOS Y GRUPOS
+sudo su - =           sirve para cambiar de mi usuario a root es decir a superUsuario administrador.
+sudo su usuario =     sirve para cambiar de usuarios.
+adduser usuario =     sirve para crear un usuario. (solo funciona en root).
+control + d =         para cerrar session.
+deluser usuario =     elimina un usuario.
+passwd mejorandola =  sirve para cambiar la contraseña.
+
+dit/link/file
+rwx: puede ejecutar script.
+rw-: owner = cuales son los permisos.
+r--: group = grupo que pertenece.
+r--: anyone = que permisos tiene.
+---: ni leerlo, ni escribir, ni ejecutar.
+
+dueno - grupo - otros
+rwx   - r-x   - --x
+
+chmod = cambia los permisos;
+chmod o-r file.extension =   quita el permiso de lectura de otros;
+chmod g+x file.extension =   coloca el permiso de ejecucion de grupos; 
+
+r = 4
+w = 2
+x = 1
+
+r--: leer 
+rw-: leer y escribir 
+r-x: leer y ejecutar
+--x: ejecutar
+-wx: escribir y ejecutar
+rwx: permiso de todo
+
+r=4, x=1, w=2
+
+
+
+****Comandos para lectura
+cat
+    Recomendado para leer archivos pequeños.
+cat /var/log/auth.log 
+
+less
+    Recomendado para leer archivos largos.
+less /var/log/auth.log
+
+head
+    Muestra las ultimas 10 lineas de un archivo.
+head /var/log/auth.log (con modificador head -n + el numero de lineas deseadas)
+
+tail
+    Muestra las primeras 10 lineas de un archivo.
+tail /var/log/auth.log (con modificador tail -n + el numero de lineas deseadas)
+
+Seguimiento en tiempo real para el login session mediante el comando:
+    tail -f /var/log/auth.log
+    
+    
