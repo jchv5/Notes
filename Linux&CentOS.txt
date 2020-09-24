@@ -1,5 +1,5 @@
 
-****Com para files
+****Comandos para files
 
 ls usr/bin =          binarios ejecutables del sistema.
 ls usr/bin | wc -l =  muestra el numero de binarios ejecutables.
@@ -78,10 +78,12 @@ control + d =         para cerrar session.
 deluser usuario =     elimina un usuario.
 passwd mejorandola =  sirve para cambiar la contraseña.
 
-
+sudo su            Este comando en Ubuntu es para pasarte a usuario root desde un usuario cualquiera
+su - 'username'    Este comando te sacara del root user, y te llevara al user ingresado
 
 
 ****Comandos para lectura
+
 cat
     Recomendado para leer archivos pequeños.
 cat /var/log/auth.log 
@@ -185,6 +187,231 @@ Este comando nos muestra el identificador de cada proceso. Para terminarlo podem
 
 *****Monitoreo de procesos y recursos del sistema
 
+htop ==> muestra una mejor organización de la información de los procesos del sistema
+
+Disco duro: du . Tiene un modificador para mostrar el peso de una ruta especifica: du -hsc /home/platzi.
+En ciertos casos este comando require de permisos 
+
+cat /proc/cpuinfo | grep "processor"      Muestra información sobre el CPU
+sudo ps auxf | sort -nr -k 3 | head -5    Muestra los 5 procesos que más uso hacen del CPU
+sudo ps auxf | sort -nr -k 4 | head -5    Muestra los 5 procesos que más uso hacen de la memoria RAM
+
+
+
+****Análisis de los parámetros de red
+
+Comandos
+
+ifconfig    Interface Configuration, muestra las tarjetas de red que tenemos y su direccionamiento específico
+ip a 	    IP Address Show, muestra las direcciones IP
+hostname:   Como se identifica este equipo en la red
+route -n    Muestra cual es el dispositivo que me permite conectarme a internet
+nslookup    Muestra la dirección IP de un dominio determinado
+curl 	    Realiza consultas a un servidor
+wget 	    Permite descargar contenido de un servidor
+
+
+Comandos útiles
+
+ip -4 a   Muestra las direcciones IPv4
+ip -6 a   Muestra las direcciones IPv6
+
+
+
+****Administración/instalacion de paquetes acorde al OS
+
+
+    Red Hat / CentOS / Fedora
+
+Repositorios: yum
+Extensión de paquetes: .rpm
+
+Comandos:
+
+rpm -qa 	     Lista todos los rpm instalados en la máquina
+rpm -i paquete.rpm   Instala un paquete
+rpm -e paquete.rpm   Desinstala un paquete
+yum install paquete  Instala un paquete desde un repositorio
+yum search paquete   Busca un paquete en un repositorio
+	    
+    Debian / Ubuntu
+        
+Repositorios: apt
+Extensión de paquetes: .deb
+
+Comandos:
+
+dpkg -l 	     	   Lista todos los deb instalados en la máquina
+dpkg -i paquete.deb        Instala un paquete
+dpkg -r paquete.deb        Desinstala un paquete
+dpkg-reconfigure paquete   Permite configurar nuevamente un paquete
+apt install paquete 	   Instala un paquete desde un repositorio
+apt search paquete	   Busca un paquete en un repositorio
+
+
+
+
+/////******Manejo de paquetes en sistemas basados en Debian******\\\\\
+
+
+date 			    Imprime la fecha actual
+sudo apt update   	    Actualiza la información local sobre los repositorios de Ubuntu
+sudo apt upgrade  	    Actualiza todos los programas que tenemos instalados en la máquina
+ 
+ 
+Otra (nueva) manera de buscar paquetes: 
+
+snap search file name       buscar un paquete.
+snap refresh --list         Para ver toda la lista de paquetes.
+snap info file name         verificar la información de un paquete especifico.
+
+sudo snap install canonical-livepatch   
+Instala un paquete con el nuevo gestor de paquetes de Canonical, snap ( el key/Live patch debe ser obtenido en: https://auth.livepatch.canonical.com/?_ga=2.246540228.1309143529.1600820175-360682673.1599848663 )
+
+apt dist-upgrade            Realiza actualizaciones a escala de kernel. Estas actualizaciones siempre requieren reinicio, a no de ser de tener Live Patch permite 			      estas actualizaciones sin tener que hacer reinicio, pide registrar hasta 3 máquinas para este proceso.
+dpkg-reconfigure tzdata     Para configurar la hora del servidor
+apt dist-upgrade 	    Realiza actualizaciones a escala de kernel. Estas actualizaciones siempre requieren reinicio, a no de ser de tener Live Patch permite 			      estas actualizaciones sin tener que hacer reinicio, pide registrar hasta 3 máquinas para este proceso.
+
+apt seach paquete ó apt-cache search
+Para realizar busqueda de paquetes. Para refinar la búsqueda agregar al final del nombre de paquete $, y encerrar todo el nombre del paquete entre comillas. “mysql-server$”.
+
+
+
+
+****Administración de software con YUM y RPM para CentOS
+
+
+su   		        Este comando en Debian/centOS esvpara pasarte a usuario root desde un usuario cualquiera
+su - 'username'         Este comando te sacara del root user, y te llevara al user ingresado
+
+yum update     		(desde usuario root) actualizar repositorios.
+rpm -e filename         Este comando sirve para el borrado de files
+rpm -qa 		ver todos los paquetes instalados
+rpm -qi bash   		Consultar información del paquete bash
+rpm -qc bash   		Ver configuración de bash
+yum install filename    Comando  utilizado para la instalacion de files
+yum install net-tools:  Este paquete incluye las herramientas importantes para controlar el subsistema de red del núcleo Linux. Esto incluye arp, ifconfig, netstat, 			     rarp, nameif y route. Además, este paquete contiene utilidades relativas a tipos particulares de «hardware» de red (plipconfig, slattach, mii-			   tool) y aspectos avanzados de configuración IP (iptunnel, ipmaddr).
+			Recordar que se debe tener cuidado con el tipo de enlaces que se agregan a los repositorios.
+
+
+
+****Nagios: Desempaquetado, descompresión, compilación e instalación de paquetes
+
+Nagios website: https://www.nagios.org/
+
+
+    *Instalar los siguientes paquetes
+    
+sudo apt install build-essential libgd-dev openssl libssl-dev unzip apache2 php gcc libdbi-perl libdbd-mysql-perl
+
+
+    *Descargar Nagios (link directo, opcional)
+   
+wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.4.tar.gz -O nagioscore.tar.gz
+
+
+    *Descomprimir y desempaquetar el archivo descargado
+    
+tar xvzf nagioscore.tar.gz
+
+
+    *Configurar e instalar (en la carpeta donde se descomprimieron los archivos) a Nagios
+    
+
+sudo ./configure --with-https-conf=/etc/apache2/sites-enabled
+sudo make all
+sudo make install
+
+Si da error en el paso de ejecutar “sudo make install”, usar los comandos siguientes:
+sudo make install-groups-users
+sudo usermod -a -G nagios www-data (no bligatorio)
+
+#Aporte del usuario @diegohernanvillalobos
+#Si no les funciona "sudo make install" continuar con los siguientes comandos y ejecutar luego "sudo make install"
+sudo make install-groups-users
+sudo usermod -a -G nagios www-data
+#Hasta aquí
+
+sudo make install-init
+sudo make install-commandmode
+sudo make install-config
+sudo make install-webconf
+
+
+ # Activar el servicio de Nagios
+    
+
+sudo systemctl start nagios
+
+
+ # BONUS: instalar plugins de Nagios
+    
+
+wget https://nagios-plugins.org/download/nagios-plugins-2.2.1.tar.gz -O nagios-plugins.tar.gz
+tar xzvf nagios-plugins.tar.gz
+cd nagios-plugins-2.2.1
+sudo ./configure
+sudo make all
+sudo make install
+
+
+
+
+/////Los usuarios, una tarea vital en el proceso de administración
+
+
+# Comandos
+
+id	 Muestra el identificador único de mi usuario, del grupo al que pertenezco y los grupos de los cuales formo parte
+whoami   Muestra que usuario soy
+passwd   Cambia la contraseña del usuario actual
+
+# Comandos útiles
+
+cat /etc/passwd   Muestra todos los usuarios del sistema operativo
+cat /etc/shadow   Muestra las contraseñas del sistema operativo
+
+
+
+
+/////Creando y manejando cuentas de usuario
+
+
+
+    sudo useradd nombre-usuario  crea un usuario sin asignarle inmediatamente alguna contraseña ni consultar más información. Debemos terminar de configurar esta 
+                                 cuenta a mano posteriormente.
+    sudo adduser nombre-usuario  crea un nuevo usuario con contraseña y algo más de información. También creará una nueva carpeta en la carpeta /home/.
+                                 userdel nombre-usuario: eliminar cuentas de usuarios.
+    usermod: 			 modificar la información de alguna cuenta.
+
+    cat /etc/passwd 		 Utilizado para ver los users en el sistema, nunca modificar este comando (para filtrar un user especifico usar:  | grep username)
+    
+    
+    /////Entendiendo la membresía de los grupos
+    
+    
+su - user 	     	         Switch User, cambia de usuario
+groups user	    		 Muestra a que grupos pertenece cierto usuario
+sudo gpasswd -a user group       Agrega un usuario a un grupo
+sudo gpasswd -d user group       Quita a un usuario de un grupo
+usermod -aG user group           Agrega un usuario a un grupo
+sudo -l				 Muestra que permisos tiene el usuario actual
+    
+
+
+///// Usando PAM para el control de acceso de usuarios
+
+
+# Comandos
+
+pwscore   	    Evalúa si una contraseña es buena o mala del 0 al 100
+ulimit   	    Muestra los permisos que tiene el usuario actual. 
+ulimit -u numero    Cambia la cantidad de procesos que mi usuario puede ejecutar
+sudo apt libpwquality-tools   Recuerda que para usar estos comando en sistemas basados en Ubuntu debemos instalar este paquete
+
+# Comandos útiles
+
+sudo vi /etc/security/time.conf   Modifica el archivo que indica en que horarios pueden conectarse ciertos usuarios
 
 
 
@@ -194,25 +421,28 @@ Este comando nos muestra el identificador de cada proceso. Para terminarlo podem
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 
