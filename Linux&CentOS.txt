@@ -304,7 +304,6 @@ Nagios website: https://www.nagios.org/
     
 sudo apt install build-essential libgd-dev openssl libssl-dev unzip apache2 php gcc libdbi-perl libdbd-mysql-perl
 
-
     *Descargar Nagios (link directo, opcional)
    
 wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.4.tar.gz -O nagioscore.tar.gz
@@ -320,17 +319,13 @@ tar xvzf nagioscore.tar.gz
 
 sudo ./configure --with-https-conf=/etc/apache2/sites-enabled
 sudo make all
-sudo make install
 
-Si da error en el paso de ejecutar “sudo make install”, usar los comandos siguientes:
+#Si no funciona "sudo make install" continuar con los siguientes comandos y ejecutar luego "sudo make install"
 sudo make install-groups-users
 sudo usermod -a -G nagios www-data (no bligatorio)
 
-#Aporte del usuario @diegohernanvillalobos
-#Si no les funciona "sudo make install" continuar con los siguientes comandos y ejecutar luego "sudo make install"
-sudo make install-groups-users
-sudo usermod -a -G nagios www-data
-#Hasta aquí
+sudo make install
+
 
 sudo make install-init
 sudo make install-commandmode
@@ -416,27 +411,335 @@ sudo vi /etc/security/time.conf   Modifica el archivo que indica en que horarios
 
 
 
+///// Arranque, detención y recarga de servicios
+
+
+# Comandos
+
+    sudo systemctl status servicename	   Estado de un servicio
+    sudo systemctl enable servicename	   Habilita un servicio
+    sudo systemctl disable servicename 	   Deshabilita un servicio
+    sudo systemctl start servicename 	   Enciende un servicio
+    sudo systemctl stop servicename 	   Apaga un servicio
+    sudo systemctl restart servicename     Reinicia un servicio
+    sudo systemctl list-units -t service --all    	Lista los servicios del sistema
+    sudo journalctl -fu servicename 	   Muestra el log de un servicio
+    sudo journalctl --disk-usage 	   Muestra cuanto pesan los logs en el sistema operativo
+    sudo journalctl --list-boots 	   Muestra los booteos de la computadora
+    sudo journalctl -p critic|notice|info|warning|error   Muestra mensajes de determinada categoría de nuestros logs
+    sudo journalctl -o json 		   Muestra los logs en formato json
+
+
+    
+    
+    ///// NGINX y Apache en Ubuntu server 
+    
+    Para validar los puertos que tienen un proceso activo usamos:
+
+	sudo netstat -tulpn
+    
+    # Apache
+
+Ejecuta el siguiente comando
+
+	sudo apt install apache2
+
+    # NGINX
+
+Ejecuta el siguiente comando
+
+	sudo apt install nginx nginx-extras
+	
+
+Para verificar si los servicios está corriendon se debe ejecutar los siguientes comandos:
+	systemctl status apache2
+	systemctl status nginx
+    
+    
+# Si se siguió el orden de instalación, NGINX no debe estar ejecutándose, pues por defecto intentará levantarse en el puerto 80, el cual ya se encuentra ocupado por Apache, para ello cambiaremos el puerto de Apache al puerto alterno http 8080.
+
+	sudo nano /etc/apache2/ports.conf
+
+# A continuación tenemos que cambiar el puerto al 8080, para esto se debe cambiar la instrucción Listen 8080 dentro del documento ports.conf.
+
+# Después abrimos nuestro archivo de configuración de Apache sudo nano /etc/apache2/sites-available/000-default.conf y cambiamos el virtualhost a 8080 
+  <VirtualHost*:8080>
+
+# Después realizamos el proceso de detener apache2 y volverlo a encender, con los siguientes comandos
+
+	sudo systemctl restart apache2 (reset nginx as well)
+	systemctl status apache2
+	systemctl status nginx.    
+    
+
+Ambos sitios deberían estar activos y en ejecución.
+Paso siguiente, dirígete al archivo de configuración de NGINX donde te asegurarás que exista una directiva en el location llamada proxy_pass que contenga lo siguiente:
+
+proxy_pass http://127.0.0.1:8080;   (comando:  sudo nano /etc/nginx/sites-available/default )
+
+	#exsiste la posibilidad de que se requiera crear un file si no hay nada en la config:
+	
+	File composition;
+	
+ server_name;
+
+    location /{
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-Forwarded-Server $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Real - IP $remote_addr;
+            proxy_set_header Host  $host;
+            proxy_pass http://localhost:8080/;
+    }
+
+
+# Next, enable the Nginx site by running the commands below
+
+	sudo ln -s /etc/nginx/sites-available/myproxy /etc/nginx/sites-enabled/
+
+    
+    Si por alguna razón el servidor Apache no se encuentra en la misma máquina, debemos cambiar la dirección IP y el puerto respectivo.
+
+Apache tiene un comando para activar sitios que es a2ensite que recibe como parámetro el archivo de configuración definido en /etc/apache2/sites-available. NGINX no cuenta con este comando, motivo por el cual se tiene un enlace blando, es decir, cuando creemos un archivo de configuración en /etc/nginx/sites-available debemos ejecutar sudo ln -s /etc/nginx/sites-available/configuracion_nginx /etc/nginx/sites-enabled/
+
+Apache también me permite deshabilitar sitios y agregar módulos
+
+sudo a2dissite 000-default
+
+sudo a2enmod rewrite headers env dir mime
+
+Si queremos activar letsecrypt en NGINX, debemos agregar una línea en el .htaccess en la ruta /var/www/html/nombre_host/.htaccess. La linea es SetEnvIf X-Forwarded-Proto https
+
+
+	#  LOS FILES CONFIGURABLES SE PUEDEN ENCONTRAR EN LA CARPETA ( etc/ )
 
 
 
 
+///// Instalación y configuración de NGINX
 
+	sudo apt search "nginx$"
+
+	sudo apt update && sudo apt install nginx    ( "&&"  este modificador nos permite ejecutar 2 comandos a la vez )
+
+
+	sudo netstat -tulpn	 ver servicios corriendo en puertos especificos
+	
+	 -tulpn       ( modificador para busquedas especificas )
+	t=	TCP
+	u=	UDP
+	l=	LISTEN
+	p=	PORT
+	n=	NUMERICALLY
+
+
+	curl -I localhost	  muestra info sobre los Heads que estan respondiendo al Servidor
+
+
+
+
+///// NGINX Amplify: Instalación y configuración de un servidor para producción
+
+
+
+Proceso de instalación
+
+
+    # Instalar Python 2.7
+
+sudo apt install python2.7
+
+    # Movernos a la carpeta de Nginx
+
+cd /etc/nginx
+
+
+   # Modificar el archivo conf.d de la siguiente manera:
+
+sudo cat > conf.d/stub_status.conf
+
+
+server{
+	listen 127.0.0.1:80;
+	server_name 127.0.0.1;
+	location /nginx_status {
+		stub_status on;
+		allow 127.0.0.1;
+		deny all;
+	}
+}
+
+
+
+    # Matar el proceso de Nginx
+
+sudo kill -HUP `cat /var/run/nginx.pid`
+
+    # Reiniciar y habilitar Nginx
+
+sudo systemctl restart nginx && systemctl enable nginx
+
+    # Logearnos en el sitio web de Nginx Amplify y seguir las instrucciones de instalación: https://amplify.nginx.com
+    Iniciar el servicio de Nginx Amplify
+
+service amplify-agent start
+
+chmod +x install.sh  ( otorgaremos permisos al file descargado )
+
+
+    # si luego de seguir los pasos indicados en el amplify site, se muestra algun error seguir estas indicaciones:
+ 
+
+    1. Después de darle los permisos de ejecución al archivo "install.sh" de abre con vim o nano
+    2. Se edita la linea que dice “packages_url=” se reemplaza la url de las comillas por esta:
+    https://packages.amplify.nginx.com/py3/
+
+
+   # Reiniciar Nginx
+
+	sudo systemctl restart nginx    reiniciamos el servicio
+
+	service amplify-agent start     verificamos su status
+
+
+
+
+///// Monitoreo de MySQL con Nagios
+
+
+   
+   # Instalar MySQL Server
+
+sudo apt install mysql-server
+
+   # Obtener el password de MySQL
+
+sudo vim /etc/mysql/debian.cnf
+
+   # Iniciar sesión en MySQL
+
+mysql -u debian-sys-maint -p
+
+   # Asegurar el server de la base de datos
+
+sudo mysql_secure_installation
+
+   # Verificar que Apache esté funcionando
+
+systemctl status apache2
+
+   # Activar módulos rewrite y cgi
+
+sudo a2enmod rewrite cgi
+
+   # Reiniciar Apache
+
+sudo systemctl restart apache2
+
+   # Crear un usuario para Nagios
+
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin 
+
+   # Entrar a Nagios en nuestro navegador web, escribiendo como dirección:
+
+direccion_ip_del_servidor:8080/nagios
+
+Es muy importante notar que estamos ingresando en el puerto 8080, ya que ahí es donde está funcionando Apache
+
+
+  #  Instalar las siguientes dependencias:
+
+sudo apt install -y libmcrypt-dev make libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl gettext
+
+   # Si no instalaste los plugins en las clases anteriores, debes hacer lo siguiente: en primer lugar, posicionado en tu home, descargarlos
+
+wget https://nagios-plugins.org/download/nagios-plugins-2.2.1.tar.gz -0 plugins.tar.gz -O plugins.tar.gz
+
+   # Desempaquetar y descomprimir el archivo de plugins
+
+tar xzvf plugins.tar.gz
+
+   # Ya en la carpeta de plugins que se creo con el paso anterior, configurar los mismos
+
+sudo ./config
+
+   # Verificar que no existan errores ni warnings
+
+sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+   # Reiniciar Nagios
+
+sudo systemctl restart nagios
+
+   # En nuestro home, descargar el plugin de MySQL
+
+wget https://labs.consol.de/assets/downloads/nagios/check_mysql_health-2.2.2.tar.gz -O mysqlplugin.tar.gz
+
+   # Desempaquetar y descomprimir el archivo del plugin
+
+tar xzvf mysqlplugin.tar.gz
+ 
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ ///// Configuración de Nagios y MySQL
+ 
+ 
+ Instrucciones
+
+Instalar los plugins de MySQL
+
+sudo ./configure --with-nagios-user=nagios --with-nagios-group=nagios --with-openssl
+sudo make all
+sudo make install
+sudo systemctl restart mysql
+sudo systemctl restart nagios
+
+   # Ya en la consola de MySQL, crear un usuario (MySQL 8)
+
+CREATE USER 'nagtest'@'localhost' IDENTIFIED BY 'nagiosplatziS14*';   Creando un user 
+DROP USER 'nagtest'@'localhost';    				      Borrado de un user
+SELECT user,host FROM mysql.user;				      Muestra los users en el database
+
+
+   # Configurar Nagios
+
+sudo vim /usr/local/nagios/etc/nagios.cfg
+
+  # Ya dentro del archivo, agregar la siguiente linea:
+
+cfg_file=/usr/local/nagios/etc/objects/mysqlmonitoring.cfg
+
+    Crear comandos para hacer uso de Nagios
+
+sudo vim /usr/local/nagios/etc/objects/commands.cfg
+
+#Ya dentro del archivo, agregar las siguientes líneas:
+
+define command {
+	command_name check_mysql_health
+	command_line $USER1$/check_mysql_health -H $ARG4$ --username $ARG1$ --password $ARG2$ --port $ARG5$  --mode $ARG3$
+}
+
+    Crear el archivo que nombrarmos en la configuración en el archivo nagios.cfg
+
+sudo vim /usr/local/nagios/etc/objects/mysqlmonitoring.cfg
+
+#Ya en el archivo, agregar las siguientes líneas
+
+define service {
+	use local-service
+	host_name localhost
+	service_description MySQL connection-time
+	check_command check_mysql_health!nagtest!nagiosplatziS14*!connection-time!127.0.0.1!3306!
+}
+
+OJO! En la clase hay un pequeño typo, como puede verse arriba, la directiva correcta es host_name y no hostname, les va a dar error si lo ponen de esta última forma
+
+    Reiniciar nagios
+
+sudo systemctl restart nagios
+
     
     
     
