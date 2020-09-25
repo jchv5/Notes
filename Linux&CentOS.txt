@@ -1,5 +1,5 @@
 
-****Comandos para files
+///// Comandos para files
 
 ls usr/bin =          binarios ejecutables del sistema.
 ls usr/bin | wc -l =  muestra el numero de binarios ejecutables.
@@ -82,7 +82,7 @@ sudo su            Este comando en Ubuntu es para pasarte a usuario root desde u
 su - 'username'    Este comando te sacara del root user, y te llevara al user ingresado
 
 
-****Comandos para lectura
+///// Comandos para lectura
 
 cat
     Recomendado para leer archivos pequeños.
@@ -105,7 +105,7 @@ Seguimiento en tiempo real para el login session mediante el comando:
     
     
     
-  ****Interacción con archivos y permisos
+///// Interacción con archivos y permisos
   
   Identificar los archivos basándonos en el primer carácter:
 -: Es un archivo.
@@ -168,7 +168,7 @@ chown +new user:new group +file name
 
 
 
-****Terminales en linux
+///// Terminales en linux
 
 Las distribuciones de Linux para servidores no incluyen interfaz gráfica, ya que consumen muchos recursos. Esto significa que siempre vamos a trabajar desde la terminal.
 
@@ -185,7 +185,7 @@ Este comando nos muestra el identificador de cada proceso. Para terminarlo podem
 
 
 
-*****Monitoreo de procesos y recursos del sistema
+///// Monitoreo de procesos y recursos del sistema
 
 htop ==> muestra una mejor organización de la información de los procesos del sistema
 
@@ -198,7 +198,7 @@ sudo ps auxf | sort -nr -k 4 | head -5    Muestra los 5 procesos que más uso ha
 
 
 
-****Análisis de los parámetros de red
+///// Análisis de los parámetros de red
 
 Comandos
 
@@ -218,7 +218,7 @@ ip -6 a   Muestra las direcciones IPv6
 
 
 
-****Administración/instalacion de paquetes acorde al OS
+///// Administración/instalacion de paquetes acorde al OS
 
 
     Red Hat / CentOS / Fedora
@@ -278,7 +278,7 @@ Para realizar busqueda de paquetes. Para refinar la búsqueda agregar al final d
 
 
 
-****Administración de software con YUM y RPM para CentOS
+///// Administración de software con YUM y RPM para CentOS
 
 
 su   		        Este comando en Debian/centOS esvpara pasarte a usuario root desde un usuario cualquiera
@@ -295,7 +295,7 @@ yum install net-tools:  Este paquete incluye las herramientas importantes para c
 
 
 
-****Nagios: Desempaquetado, descompresión, compilación e instalación de paquetes
+///// Nagios: Desempaquetado, descompresión, compilación e instalación de paquetes
 
 Nagios website: https://www.nagios.org/
 
@@ -352,7 +352,7 @@ sudo make install
 
 
 
-/////Los usuarios, una tarea vital en el proceso de administración
+///// Los usuarios, una tarea vital en el proceso de administración
 
 
 # Comandos
@@ -369,7 +369,7 @@ cat /etc/shadow   Muestra las contraseñas del sistema operativo
 
 
 
-/////Creando y manejando cuentas de usuario
+///// Creando y manejando cuentas de usuario
 
 
 
@@ -382,7 +382,7 @@ cat /etc/shadow   Muestra las contraseñas del sistema operativo
     cat /etc/passwd 		 Utilizado para ver los users en el sistema, nunca modificar este comando (para filtrar un user especifico usar:  | grep username)
     
     
-    /////Entendiendo la membresía de los grupos
+///// Entendiendo la membresía de los grupos
     
     
 su - user 	     	         Switch User, cambia de usuario
@@ -432,7 +432,7 @@ sudo vi /etc/security/time.conf   Modifica el archivo que indica en que horarios
 
     
     
-    ///// NGINX y Apache en Ubuntu server 
+///// NGINX y Apache en Ubuntu server 
     
     Para validar los puertos que tienen un proceso activo usamos:
 
@@ -742,10 +742,445 @@ sudo systemctl restart nagios
 
     
     
+ ///// Otros servicios de logs
+
+
+Aclaración: Un demonio es sinónimo de servicio en sistemas UNIX
+
+   # Collectd: Uno de los demonios más conocidos para recopilar datos de rendimiento y visualizarlos en un navegador. Está repleto de plugins: https://collectd.org  	  /wiki/index.php/Table_of_Plugins
+   # Nmon: Sirve para obtener visualizaciones rápidas del sistema
+   # Munin Analiza el rendimiento del servidor, y muestra los resultados en gráficos históricos
+   # Grafana: Permite la visualización de datos métricos de nuestro servidor, además de la creación de cuadros de mando y gráficos
+   
     
     
+ ///// Las bases de bash
+
+¿Qué es Bash? Es una shell de UNIX y el intérprete de comandos por defecto en la mayoría de distribuciónes GNU/Linux. Se pueden crear scripts, los cuales por convención terminan con la extensión .sh
+
+# Creamos el file con el siguiente comando:
+
+   vim file.sh
+
+#Dentro del file ingresamos la siguiente info:
+
+
+   #!/bin/bash    		Definición de un intérprete para que lo que sigue se ejecute con Bash
+   VARIABLE = "Hola mundo"      Definición de una variable
+   echo $VARIABLE   		Impresión en pantalla
+   # Comentario cualquiera      Creación de un comentario
+
+ 
+ 
+ 
+ ///// Las variables y su entorno de ejecución
+ 
+ 
+ Las variables y su entorno de ejecución
+
+# Comandos
+
+env: Muestra las variables del sistema operativo
+
+# Variables de entorno
+
+$PATH: Guarda las rutas donde se ubican los archivos binarios que pueden ejecutarse directamente en la consola
+
+# Scripts útiles
+
+
+   # Verificar la cantidad de espacio en el S.O, creamos el file usando vim y luego ingresamos la config requerida:
+   
+   vim script_dd.sh
+   
+   
+   #Config:
+
+#!/bin/bash
+# Verificar la cantidad de espacio en el S.O
+# Desarrollado por Jhon Edison
+
+CWD=$(pwd)
+FECHA=$(date +"%F%T")
+echo $FECHA
+
+df -h | grep /dev > uso_disco_"$FECHA".txt
+df -h | grep /dev/sda2 >> uso_disco_"$FECHA".txt
+
+echo "Se ha generado un archivo en la ubicación $CWD"
+
+
+# Luego de crear el file de otorgamos permisos y lo ejecutamos:
+
+chmod u+x script_dd.sh 
+./script_dd.sh
+
+# Bonus
+
+ls -ltr    muestra las ultimas modificaciones hechas a los files
+pwd 	   print working directory
+df -h      disk free -h (human)
+
+
+ 
+ 
+  ///// Automatizando tareas desde la terminal
+  
+ 
+
+    # Generar backup de base de datos MySQL
     
     
+
+#!/bin/bash
+# Shell script para obtener una copia desde MySQL
+# Desarrollado por Johnny chv
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+set -e
+
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly SCRIPT_NAME="$(basename "$0")"
+
+run
+make_backup
+
+function assert_is_installed {
+	local readonly name="$1"
+	if [[ ! $(command -v ${name})]]; then
+		log_error "The binary '$name' is required but it isn't in 		our system"
+		exit 1
+	fi
+}
+
+function log_error {
+	local readonly message "$1"
+	log "ERROR" "$message"
+}
+
+function  log {
+	local readonly level="$1"
+	local readonly message="$2"
+	local readonly timestamp=$(date +"%Y-%m-%d %H:%M:%S") >&2 echo -e "${timestamp} [${level}] [$SCRIPT_NAME] ${message}"
+		
+}
+
+function run {
+	assert_is_installed "mysql"
+	assert_is_installed "mysqldump"
+	assert_is_installed "gzip"
+	assert_is_installed "aws"
+}
+
+function make_backup {
+	local BAK="$(echo $HOME/mysql)"
+	local MYSQL="$(which mysql)"
+	local MYSQLDUMP="$(which mysqldump)"
+	local GZIP="$(which gzip)"
+	local NOW="$(date +"+%d-%m-%Y")"
+	local BUCKET="xxxxx"
+	
+	USER="xxxxxx"
+	PASS="xxxxxx"
+	HOST="xxxxxx"
+	DATABASE="xxxxxx"
+
+	[! -d "$BAK" ] && mkdir -p "$BAK"
+
+	FILE=$BAK/$DATABASE.$NOW-$(date +"%T").gz
+	local SECONDS=0
+	
+	$MYSQLDUMP --single-transaction --set-gtid-purged=OFF -u $USER -p $PASS -h $HOST $DATABASE | $GZIP -9 > $FILE
+
+	duration=$SECONDS
+	echo "$($duration / 60) minutes"
+	aws s3 cp $BAK "s3://$BUCKET" --recursive
+}
+
+
+
+
+ ///// Crontab
+
+¿Qué es cron?: Es un administrador regular de procesos en segundo plano que comprueba si existen tareas para ejecutar, teniendo en cuenta la hora del sistema
+
+¿Qué es crontab?: Es el archivo de configuraciones de las tareas a ejecutar. 
+
+	Con el comando crontab -e se edita  
+	con crontab -l se listan las tareas configuradas
+
+# Formato de cron
+
+minute(0-59) hour(0-23) day_of_month(1-31) month(1-12|jan,feb,mar...) day_of_week(0-6|sun,mon,tue...) interpreter(ej:"/usr/bin/bash") command(ej:"pwd > /home/plazi/pwd.txt")
+
+ Crontab website:
+ https://crontab.guru/
+ 
+ 
+ 
+ ///// Entendiendo la gestión de vulnerabilidades
+
+  # Malas prácticas
+
+    No desactivar el usuario root
+    Realizar un login con usuario y password (sin ssh)
+    No validar la versión de software usada
+    Utilizar comandos r* o telnet
+    No identificar los servicios y puertos abiertos en el S.O
+    No gestionar correctamente los permisos de los usuarios
+    
+    
+    #Buenas prácticas
+    
+    Verificar las actualizaciones de seguridad y realizar la instalación de las mismas.
+    
+    # En CentOS:
+
+yum check-update --security
+yum update security
+
+    # En Ubuntu:
+
+apt update
+apt upgrade
+
+ 
+ # Bonus
+ 
+Ejecutar un sudo apt upgrade (sin validar antes que paquetes se deben repotenciar) podría hacer que nuevas versiones entren en conflicto con las aplicaciones que ya están corriendo en el servidor (p.ej. Si se llegara a cambiar un php6.x a un php7.x podría provocar una catástrofe), creo que mejor es verificar cuidadosamente (con el equipo) y ejecutar un set de pruebas para determinar que paquetes pueden ser repotenciados con upgrade:
+Este comando puede listar cuales son los paquetes que ya tienen nuevas versiones disponibles en los repositorios:
+
+	sudo apt list --upgradeable
+ 
+ 
+ 
+ ///// ¿Qué es una superficie de ataque? Principio del menor privilegio
+
+
+Una superficie de ataque es el conjunto de datos conocidos o vulnerabilidades que pueden ser explotados por un atacante informático.
+
+
+Software útil para la gestión de vulnerabilidades
+
+
+    Lynis: Analiza nuestro servidor y nos da recomendaciones
+
+
+
+Manuales y frameworks útiles para la seguridad de nuestro servidor
+
+
+    SCAP: El Security Content Automation Protocol es un conjunto de reglas sobre la expresión y manipulación de información relacionada con configuraciones y fallos.
+    OWASP: El Open Web Application Security Project es un proyecto de código abierto destinado a pelear contra la inseguridad informática
+
+ 
+ 
+ ///// El firewall y sus reglas
+
+
+Comandos
+
+
+    sudo ufw status		      Muestra el estado (activo/inactivo) y las reglas del firewall. Con el modificador numbered me muestra las reglas numeradas
+    sudo ufw allow puerto: 	      Habilita un puerto
+    sudo ufw enable 		      Enciende el firewall
+    sudo ufw delete numero_de_regla   Borra una regla
+    sudo ufw allow from direccion_ip proto protocolo to any port puerto  Restringe las direcciones ip que pueden conectarse a cierto puerto. Recordar que SSH trabaja 									       con el protocolo TCP
+    sudo ufw reset 		      Elimina todas las reglas
+
+
+Recomendación
+
+Abrir al público únicamente el puerto 80 (http), 443 (https). Para un conjunto de IP’s específicas, habilitar el puerto 22 (ssh)
+ 
+ 
+ 
+ ///// RESUMEN DE LA CLASE
+
+Escaneo de puertos con NMAP y NIKTO desde Kali Linux
+
+# Comandos
+
+    nmap -sV -sC -0 -oA nombre_de_archivo dirección_ip_del_servidor: Realiza un mapeo de la red
+    nikto -h ip_del_host -o nombre_de_archivo: Escanea vulnerabilidades en un servidor
+
+ 
+ 
+/////  Lynis: Herramientas de auditoria de seguridad en Linux
+
+# Comandos
+
+    sudo lynis audit system: Realiza un escaneo del sistema operativo, mostrándonos sugerencias y el estado de peligro de ciertos detalles en nuestra distribución
+
+ # Instrucciones para actualizar lynis:
+	https://packages.cisofy.com/community/
+ 
+ 
+ 
+ 
+ ///// Configuración de Node.js en un ambiente productivo
+
+
+Instrucciones
+
+
+   # Clonar el repositorio necesario para realizar la clase
+
+git clone https://github.com/edisoncast/linux-platzi
+
+   # Instalar Node.js y npm
+
+sudo apt install nodejs npm
+
+   # Posicionados en el home, descargar Node 10
+
+curl -sL https://deb.nodesource.com/setup_10.x -o node_setup.sh
+
+   # Instalar Node 10
+
+sudo bash node_setup.sh
+
+   # Instalar gcc, g++ y make
+
+sudo apt install gcc g++ make
+
+   # Finalizar el proceso de instalación de la versión 10 de Node
+
+sudo apt install -y nodejs
+
+   # Agregar el usuario nodejs si todavía no lo creaste
+
+sudo adduser nodejs
+
+   # En la carpeta de linux-platzi, ejecutar el archivo server.js
+
+node server.js
+
+   
+# Crear un archivo de configuración para el servicio de Node
+
+	sudo vim /lib/systemd/system/platzi@.service
+
+# Una vez creado el archivo, llenarlo con la siguiente información
+
+[Unit]
+Description=Balanceo de carga para Platzi
+Documentation=https://github.com/edisoncast/linux-platzi
+After=network.target
+
+[Service]
+Enviroment=PORT=%i
+Type=simple
+User=nodejs
+WorkingDirectory=/home/nodejs/linux-platzi
+ExecStart=/usr/bin/node /home/nodejs/linux-platzi/server.js
+Restart-on=failure
+
+[Install]
+WantedBy=multi-user.target
+
+ 
+ 
+ 
+ ///// Configuración de NGINX para la aplicación de Node.js
+
+Instrucciones
+
+
+    Cambiar el usuario a nodejs
+
+sudo su - nodejs
+
+    # Clonar el repositorio necesario para la clase
+
+git clone https://github.com/edisoncast/linux-platzi
+
+    Cambiar el nombre a la carpeta de linux-platzi a server
+    Corregir los errores en el archivo de configuración del servicio en /lib/systemd/system/platzi@.service
+    Iniciar el servicio (debemos estar en la carpeta /server/configuracion_servidor/bash)
+
+./enable.sh
+./start.sh
+
+    # Iniciar el servicio de Nginx (Apagar antes Apache si es necesario)
+
+sudo systemctl start nginx
+
+    # Una vez en la carpeta /etc/nginx/sites-available/ eliminar el contenido de la configuración de Nginx
+
+sudo truncate -s0 default
+
+    # Editar el archivo de configuración
+
+sudo vim default
+
+    # Una vez en el archivo, escribir lo siguiente
+
+server  {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	
+	server_name _;
+	
+	location / {
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header Host $host;
+		proxy_http_version 1.1;
+		proxy_pass http://backend;
+	}
+}
+
+upstream backend {
+	server 127.0.0.1:3000;
+	server 127.0.0.1:3001;
+	server 127.0.0.1:3002;
+	server 127.0.0.1:3003;
+}
+
+    # Validamos que la configuración establecida fue correcta
+
+sudo nginx -t
+
+    # Reiniciamos nginx
+
+sudo systemctl restart nginx
+
+    # Probamos todo haciendo un curl a localhost
+
+curl localhost
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 
 
