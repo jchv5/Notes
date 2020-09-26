@@ -1,0 +1,67 @@
+Características de Go:
+
+Diseñado por Google
+    Compilado
+    Fuertemente tipado
+    Concurrencia
+¿Quien lo usa?
+    Google
+    Netflix
+    Twitter
+    Mercado Libre
+    Dropbox
+    Alibaba
+    Proyectos hechos en Go
+    Docker
+    Terraform
+    Kubernetes
+Es el 3er lenguaje mas pagado segun la encuesta de StackOverflow
+
+
+
+///// Instalar Go on linux, VScode and Go extension for VScode
+
+For online testing  play.golang.org
+Download from      https://golang.org/dl/
+
+https://github.com/golang/go/wiki/Ubuntu
+
+Indica los siguientes comandos.
+If you’re using Ubuntu LTS or 19.10 on amd64, arm64, armhf or i386, then you can use the longsleep/golang-backports PPA and install Go.
+
+sudo add-apt-repository ppa:longsleep/golang-backports 
+sudo apt update && sudo apt install golang-go
+
+
+
+///// Comandos básicos de Go
+
+go build filename    Compila el archivo (no soporta binary files)
+go run filename      Compila y ejecuta
+go mod               Modifica los files para compartir
+
+
+
+/////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
