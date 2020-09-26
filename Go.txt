@@ -42,19 +42,31 @@ go mod               Modifica los files para compartir
 
 
 
-/////
+///// Analizando un programa en Go
+
+package "filename"          Es la forma en la que distribuimos o almacenamos código en Go.
+import                      Sirve para importar librerías necesarias para ejecutar el programa.
+func main() {}              Es el punto de inicio de todo el código, es todo lo que se ejecuta.
+
+
+# La combinación de caracteres := le dice a Go que infiera el tipo de dato de esa variable
+
+    a := “Hola” // var a string = "Hola"
+    b:= 5 // var b int = 5
+
+# Para indicar que una función es privada/interna se debe declarar con letra minúscula al inicio:
+
+    private function()
+
+# Para indicar que una función es privada se debe declarar con Letra mayúscula al inicio:
+
+    Public function()
+
+"defer" ejecuta un fragmento de código hasta que la función haya terminado, en otras palabras retraza el codigo para que aparezaca al final
 
 
 
-
-
-
-
-
-
-
-
-
+///// 
 
 
 
