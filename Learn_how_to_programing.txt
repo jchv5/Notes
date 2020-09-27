@@ -1,0 +1,153 @@
+
+///// Recap Programación básica
+
+La creación de aplicaciones web se basa en:
+
+    HTML: Lenguaje de hipertexto, en donde se define la información o el contenido del documento.
+    CSS: Lenguaje de estilos en cascada, donde se especifica el diseño del documento. Hace referencia a la parte visual.
+    JavaScript: Lenguaje interactivo, que permite crear sitios web. Es un lenguaje que interpreta el navegador.
+
+
+Todo lenguaje de programación trabaja con determinados elementos
+
+
+    Variable ==   Valor que hace referencia a otro valor
+    Condicionales == Código que se ejecuta siempre que una circunstancia sea cierta
+    Funciones == Son una herramienta que nos permite reutilizar código que vamos a utilizar múltiples veces
+    Eventos ==   Actos que suceden cuando algo ocurre. Ejemplo: click, tocar una tecla, poner el mouse sobre un lugar de la pantalla, etc.
+    Clase ==     Define las características de un objeto
+    Arreglos ==  Conjunto de datos ordenados por posiciones y todos asociados en una sola variable, se puede acceder a esos datos de manera independiente. 
+                 Un arreglo es un objeto.
+    Objeto ==    Son envolturas de código
+
+
+///// ¿Qué es HTML/CSS/JS?
+
+
+¿Cuàl es la diferencia entre programaciòn y interactividad?
+
+
+programacion es codigo que tu escribes para que nuestros telefonos o computadores hagan algo.
+
+
+la interactividad es el resultado de la programaciòn.
+
+html =        no tiene interactividad
+css =         no tiene interactividad
+javascript =  si tiene interactividad con la informacion de html
+Html =        es un lenguaje de marcado de hipertexto y hay colocamos la informaciòn.
+css =         Es un lenguaje de estilo en cascado, el contenido lo muestra de una forma visual.
+javascrpit =  hace que los botones funcionen.
+
+
+JavaScript !#(no es) Java
+
+JavaScript es el lenguaje de la web, servidores, robots, etc.
+Java es un lenguaje para servidores, aplicaciones de escritorio y aplicaciones Android
+
+
+¿con que extensiones se guarda?
+
+
+html = .html
+css = .css
+javascript = .js
+
+
+¿Que editores de codigo hay?
+
+sublime text 
+atom = editor del curso
+visual studio
+
+
+¿Interpreta los archivos?
+
+ es el que habre = navegador
+ 
+ 
+ ///// 
+ 
+1.- Abrir un browser
+2.- Lado derecho Mouse, click en Inspect
+3.- Click en Consola
+
+# Codigo a insertar
+
+  alert("Go fuck yourserlf");
+
+# Vocabulario...
+
+alert   - alert es una orden
+""      - Las comillas son para delimitar un texto libre" o sea una cadena de texto (String)
+()      - Funciones son colecciones de códigos que hacen algo y van dentro de paréntesis
+("")    - Los Parámetros son la información que una función necesita para lograr algo, y van dentro de los paréntesis y con comillas
+;       - Sera una buena practica colocar ";" al final de toda linea de codigo, esto le indica al gestor que hasta ahí termina la instrucción que le dimos
+{}      - Los Bloques de código son los que no terminan en punto y coma sólo las líneas independientes
+
+
+var x = 1;   - var es igual a variable (declara la existencia de una variable en memoria, "x" sera igual al valor de "1")
+=            - Operador es el signo = asigna el valor de la variable
+var z = 5    - x variable, = operador, 1 el valor de la variable
+alert("El valor de z es " + z);    - Cuando sumamos un número a un texto ambos se vuelven textos y eso se llama concatenación
+
+Ej1:
+
+var x = 1
+var y = 2
+var z = x + y;
+z;
+3
+
+Ej2:
+
+var Johnny = "Learning this "
+var Vargas = "is kinda fun"
+Johnny + Vargas;    -or-   alert (Johnny+Vargas);
+
+ #Bonus
+var fuck = Johnny + Vargas;
+fuck;
+var a = "El mmg le dijo, "
+el + fuck;
+
+
+///// HTML, CSS, JavaScript
+
+Forma del cuerpo para un codigo HTML
+
+<!DOCTYPE html>\
+<html>         -> Estos indican el inicio del html file y deben estar al tope
+
+<head>            Con este se indica todo lo que estara en el encabezado del site y siempre estara debajo de <html> 
+<title>           Mostrara el nombre del website en la pestana del browser, siempre esta dentro del <head>
+</title>          Cumple con la funcion de cerrar/completar el titulo
+<style>           Nos permite agregar color, size, font a nuestro texto. Es la parte de CSS dentro de HTML, en ocasiones se puede mostrar como <style type="text/css">
+</style>          Cumple con la funcion de concluir la personalizacion
+</head>           Cumple con la funcion de cerrar el encabezado
+
+<body>            Incluira todo el texto de nuestra Website
+<p>               sirve para ingresar text al code html y la website
+</p>              Indica al codigo que es el final de una linea o parrafo, luego empezamos una linea nueva.
+<script>          Nos permite agregar valores numericos a nuestro texto. Es la parte de JavaScript dentro de HTML, en ocasiones se puede mostrar como <script type="text/javascript">
+</script>         Cumple con la funcion de cerrar la configuracion JavaS
+</body>           Cumple con la funcion de cerrar el cuerpo del file
+
+</html>           Cumple con la funcion de cerrar nuestro html/code file
+
+
+  # Bonus
+  
+  Como poner en negritas palabras deseadas:
+   
+   Se utilizara: "<strong></strong>" en medio se colocara el texto
+   
+   Ej:
+     <p> <strong>toy en esa vuelta</strong></p>
+  
+  
+  
+  
+  
+  
+  
