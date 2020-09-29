@@ -172,8 +172,8 @@ document.write(""); Nos permite mostrar una respuesta en forma de texto dentro d
   Concatenación     Es unir cadenas de texto o variables. En JS se usa el operador + para realizar dicha acción.
                         ej; 
                           document.write("Tu peso en " + nombre + " es <strong>" + peso_final + " kilos</strong>");
-  
-  \n                Esta funcion no permite ordenar nuestro texto por salto de linea dentro de JS, es el equivalente a br en html. /n lo toma como texto sencillo.
+  <br>              Esta funcion nos permite ordenar nuestro texto por salto de linea dentro de HTML, la situacion donde se usara sera, "<p>aqui <br> dentro</p>"
+  \n                Esta funcion nos permite ordenar nuestro texto por salto de linea dentro de JS, es el equivalente a <br> en html. /n lo toma como texto sencillo.
                         ej;
                           var planeta = parseInt(prompt("Elige tu planeta:\n1 es Marte \n2 es Jupiter"));
   
