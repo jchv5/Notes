@@ -260,18 +260,105 @@ https://developer.mozilla.org/es/docs/Web/JavaScript/Introducci%C3%B3n_a_JavaScr
 
 
 
+///// Node.js 
 
+    https://nodejs.org/en/
+    
+# para crear un servidor online de manera local en la PC
+
+1. Descargar desde la pag oficial, e installar
+2. Abrir la teminal para node.js, node.js command prompt
+3. crear la carperta express y entrar a la carpeta desde la terminal para instalar la libreria express
+
+     https://www.npmjs.com/
+4. Desde la terminal: npm install express (esto instalara express en esta carpeta), npm install express -g (instalaria de manera global lo cual no es recomendado)
+5. crear un file tipo .js,   ej:  server.js   ,dentro de la carpeta express y ingrasar esta configuracion con VScode:
+
+
+var server = require("express");
+var application = server();
+
+application.get("/", start);
+application.get("/courses", courses);
+
+function start(petition, result)
+{
+    result.send("This is the <strong>home</strong>");
+}
+function courses(petition, result)
+{
+    result.send("These are the <strong>courses</strong>");
+}
+application.listen(8989);
+
+6. Para completar la instalacion desde la teminal de node.js se usara el comando: node server.js
+7. Para entrar al server usar: 127.0.0.1:8989  ,esto puede variar segun la configuracion de cada quien
+   
+   # En case de problemas, accesar el Firewall y dar permiso a node.js
+
+
+
+///// Arduino programming
+  
+  # Arduino usa un lenguaje llamado sketch el cual esta basado en C, el lenguaje mas viejo de programacion
+  
+  basic code for two leds
+  
+  int led13 = 13;
+  int led7 = 7;
+
+
+void setup()
+{
+  pinMode(led13, OUTPUT);
+  pinMode(led7, OUTPUT);
+}
+
+void loop()
+{
+  digitalWrite(led13, HIGH);
+  digitalWrite(led13, LOW);
+  delay(250);                // Wait for x millisecond(s)
+  digitalWrite(led7, HIGH);
+  digitalWrite(led7, LOW);
+  delay(250*2);              // Wait for x millisecond(s)
+}
+  
+  El LED es un diodo y está formado por ánodo y cátodo
+
+    Ánodo: Parte positiva (+)
+        Se identifica con la pata más larga
+    Cátodo: Parte negativa (-)
+        Se identifica con la pata más corta
+        ¿qué pasa si mi amigo la cortó y dejó las dos iguales? internamente el cátodo se ve como una especie de banderita
+  
+  
+  #En C las variables se presentan con "int"
   
   
   
+  //// Librerias para configurar Ardinos, con johnny-five y nodejs
   
+  http://johnny-five.io/
+  1. Abrir la terminal, moverse a la carpeta donde estan los files de Arduino, crear una carpeta llamada arduinode "mkdir arduinode" y entrar a esta carpeta
+  2. Luego de entrar a esta carpeta, ejecutar el siguente comando: npm install johnny-five
+  3. Realizado lo anterior, pasaremos al menu de Arduino y buscaremos las opciones:
+     File
+        Examples
+            Firmata
+                StandarFirmata
+       Al abrir este archivo, daremos click a Verify and upload para cargarlo. En este punto estara listo, podemos usar VScode y nodejs para configurar pero 
+       siempre guardando los files en la carperta "arduinode" que fue creada antes.
   
-  
-  
-  
-  
-  
-  
+  4. Para traer las funciones de johnny-five a VScode se usara este comando:
+        var jf = require("jf");
+        var board = new jf.Board();
+
+  5. El codigo puede iniciar asi:
+        board.on("ready", function() {
+        var led = new jf.Led(13);
+        led.blink(500);
+        });
   
   
   
