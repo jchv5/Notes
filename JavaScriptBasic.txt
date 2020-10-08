@@ -81,6 +81,157 @@ Dentro de JavaScript tenemos tres formas de declarar una variable las cuales son
 
 
 
+///// Topos de Funciones
+
+
+Funciones declarativas
+
+#En las funciones declarativas, utilizamos la palabra reservada function al inicio para poder    declarar la función:
+
+    function joder()
+    {
+     return 3;
+    }
+    
+    Para llamar la funcion:
+
+    joder();
+    
+
+Funciones de expresion    
+#En la expresión de función, la declaración se inicia con la palabra reservada var, donde se generará una variable que guardará un función anónima.
+#En la expresión de función, la función podría o no llevar nombre, aunque es más común que se hagan anónimas.
+
+    var joder = function(a,b)
+    {
+     return a + b;
+    }
+Para llamar la funcion:
+
+    joder();
+
+
+Para monitorear multiples datos en el code:
+
+    function joder(marron)
+    {
+     console.log('Hello ${marron}');  //Esta composicion llamaria todos los datos dentro de joder
+     return 3;
+    }
+    
+
+function sum(a,b){
+  var result = a + b;  #Se guardara el valor de la suma en la variable result
+    return result;}
+
+sum(3,5);
+
+
+function sum(a,b){
+    return a + b;}     #No se guardara el valor ya que ninguna variable fue declarada
+
+sum(3,5);
+
+
+
+
+///// Coerción
+
+Coerción es la forma en la que podemos cambiar un tipo de valor a otro, existen dos tipos de coerción:
+Coerción implícita = es cuando el lenguaje nos ayuda a cambiar el tipo de valor.
+Coerción explicita = es cuando obligamos a que cambie el tipo de valor.
+
+var a = 20;
+var b = a + "";
+console.log(b);
+typeof b  //"string"
+var c = String(a);   # String(); forza/convierte un valor tipo numerico a texto(string)
+
+typeof c  //"string"
+console.log(c);
+20
+var d = Number(c);   # Number(); forza/convierte un valor tipo texto a numerico(Number)
+typeof d  //"number"
+
+
+
+///// Boolean, Valores: Truthy y Falsy
+
+
+//Ejemplos en los que Boolean devuelve Falso:
+Boolean(0); //false
+Boolean(null); //false
+Boolean(NaN); //false
+Boolean(undefined); //false
+Boolean(false); //false
+Boolean(""); //false
+
+//Ejemplos en los que Boolean devuelve verdadero:
+Boolean(1); //true para 1 o cualquier número diferente de cero (0)
+Boolean(-1); //true para -1 o cualquier número diferente de cero (0)
+Boolean("a"); //true para cualquier caracter o espacio en blanco en el string
+Boolean([]); //true aunque el array esté vacío
+Boolean({}); //true aunque el objeto esté vacío
+Boolean(function(){}); //Cualquier función es verdadera también
+
+
+
+
+///// Operadores: Asignación, Comparación y Aritméticos.
+
+
+# Operador de asignacion
+Simbolo 	Descripcion
+= 	operador de asignacion
+
+
+# Operadores de comparacion
+
+== 	igual que (validacion flexible)  True: 3 == "3"   False: 3 == 7
+=== 	estrictamente igual que, True: 3 === 3   False: 3 === "3"
+> or >= or >== 	mayor o mayor igual que
+< or <= or <== 	menor o menor igual que
+!= or !== 	diferente que
+
+
+# Operadores aritmeticos
+
++ 	operador suma este se utiliza para concatener dos cadenas de texto.
+- 	operador resta
+* 	operador de multicacion
+/ 	operador de division
+% 	operador de modulo
+** 	operador de potenciacion
+
+tambien se les conoce como operadores binarios. por que toman dos valores y generan un resultado.
+
+
+# Operadores logicos
+Simbolo 	Descripcion
+! 	NOT  niega un valor
+&& 	AND  Si ambas variables son iguales se valida la condición, si alguna es diferente sera falso
+|| 	OR   Aquí se cumple la condición si alguna de las dos variables es verdadera
+
+
+# Operadores de incremento
+
+var edad = 40
+edad++     //Incrementa el valor de la base en 1
+
+edad += 2  //Incrementa el valor por 2, edad = 40 + 2 = 42
+edad -= 5  //Causa un efecto de resta por el valor de 5, edad = 40 - 5 = 35
+
+
+
+///// Condicionales: If, Else, else if
+
+
+
+
+
+
+
+
 
 
 
