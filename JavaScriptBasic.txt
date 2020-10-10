@@ -223,10 +223,51 @@ edad -= 5  //Causa un efecto de resta por el valor de 5, edad = 40 - 5 = 35
 
 
 
-///// Condicionales: If, Else, else if
+///// Array
 
 
+Un Array es un tipo de estructura de datos, objeto. Puede guardar datos distintos dentro, guarda los datos en forma de lista.
+ 
+ Create Array:
+    var fruits = ["apple", "peach", "lychee"];
+ # How to check the Array:
+    type the var name for the array: fruits
+    
+.lenght       devuelve la longitud del array en un valor numerico.
+    console.log(fruits.length);
+    
+.push()       agrega elementos al final de array.
+    var morefin = fruits.push("grape");
 
+.pop()        elimina un elemento del array.
+    var removefin = fruits.pop("grape");
+
+.unshift()    agrega un elemento al array, y lo coloca al inicio del array.
+    var moreini = fruits.unshift("grapes");
+  
+.shift()      elimina el elemento que está en el inicio del array.
+    var removeini = fruits.shift("grapes");
+    
+.indexOf      devuelve la posición de un elemento del array.
+    var position = fruits.indexOf("lychee");
+ # How to check the position of an item inside the array:
+    type the var name for the for the command: position
+
+
+///// Loops: For y For...of
+
+
+Los bucles pueden ejecutar un bloque de código varias veces. JavaScript admite diferentes tipos de bucles:
+
+    for      recorre un bloque de código varias veces
+
+    for/in   recorre las propiedades de un objeto
+
+    for/of   recorre los valores de un objeto iterable
+
+    while    recorre un bloque de código mientras se cumple una condición específica
+
+    do/while  también recorre un bloque de código mientras se cumple una condición específica
 
 
 
