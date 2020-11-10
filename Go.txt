@@ -15,7 +15,6 @@ Diseñado por Google
     Docker
     Terraform
     Kubernetes
-Es el 3er lenguaje mas pagado segun la encuesta de StackOverflow
 
 
 
@@ -36,9 +35,9 @@ sudo apt update && sudo apt install golang-go
 
 ///// Comandos básicos de Go
 
-go build filename    Compila el archivo (no soporta binary files)
-go run filename      Compila y ejecuta
-go mod               Modifica los files para compartir
+go build filename    Compila y crea un archivo .exe (no soporta binary files)
+go run filename      Compila y ejecuta, usado para pruevas
+go mod               Modifica los files para wxportar nuestros codigos
 
 
 
@@ -71,7 +70,8 @@ fmt.Println()               Se utiliza para presentar un mensaje al usuario, el 
    ###Creating a calculator for the terminal
    
 
- # Libraries, algunas librerias cargaran automaticamente
+ # Libraries, para que las librerias cargen automaticamente:
+ 	Settings, buscar la extension Go y marcar la opcion "Autocomplete Unimported Packages"
 
     "bufio"
 	"fmt"
